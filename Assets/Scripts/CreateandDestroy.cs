@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using TMPro;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.SceneManagement;
+
 
 public class CreateandDestroy : MonoBehaviour
 {
@@ -25,6 +21,7 @@ public class CreateandDestroy : MonoBehaviour
     public AudioSource Music;
     public AudioSource BlockMusic;
     public AudioSource FoodMusic;
+    public GameObject Crown;
 
     private void Start()
     {        
@@ -91,11 +88,20 @@ public class CreateandDestroy : MonoBehaviour
         }
         if (other.TryGetComponent(out Finish finish))
         {
+            while (HP > 0)
+            {
+                GameObject body = GameObject.Find($"Body{HP - 1}");
+                Destroy(body);
+                HP -= 1;
+            }
+
             hp.text = "";
             Speed = 0;
             Controls.enabled = false;
             Win.SetActive(true);
             ResButton.SetActive(false);
+            Crown.SetActive(true);
+
         }
     }   
     
